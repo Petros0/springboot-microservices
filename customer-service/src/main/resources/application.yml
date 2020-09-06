@@ -1,0 +1,12 @@
+---
+spring:
+  profiles: cs1
+server:
+  port: 8080
+
+---
+server:
+  port: 8081
+spring:
+  profiles: cs2
+

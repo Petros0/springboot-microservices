@@ -1,0 +1,25 @@
+server:
+  port: 8600
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8761/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 1
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: customer-service-route
+          uri: lb://customer-service
+          predicates:
+            - Path=/customers
+  application:
+    name: gateway
+
+

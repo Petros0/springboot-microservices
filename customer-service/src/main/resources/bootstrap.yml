@@ -1,13 +1,14 @@
 spring:
   application:
-    name: customer-service-${random.uuid}
+    name: customer-service
 
 
 server:
   port: 8080
 eureka:
   client:
+    enabled: true
     service-url:
-      defaultZone: http://peer1:8761/eureka
+      defaultZone: http://peer1:8761/eureka, http://peer2:8762/eureka
   instance:
     lease-renewal-interval-in-seconds: 1
