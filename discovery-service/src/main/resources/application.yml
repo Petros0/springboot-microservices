@@ -1,0 +1,43 @@
+server:
+  port: 8761
+
+spring:
+  freemarker:
+    template-loader-path: classpath:/templates/
+    prefer-file-system-access: false
+
+app:
+  peer1Port: 8761
+  peer2Port: 8762
+
+---
+spring:
+  profiles: peer1
+
+server:
+  port: ${app.peer1Port}
+
+eureka:
+  instance:
+    hostname: peer1
+    appname: eureka-cluster
+    lease-renewal-interval-in-seconds: 3
+  client:
+    service-url:
+      defaultZone: http://peer2:${app.peer2Port}/eureka
+
+---
+spring:
+  profiles: peer2
+
+server:
+  port: ${app.peer2Port}
+
+eureka:
+  instance:
+    hostname: peer2
+    appname: eureka-cluster
+  lease-renewal-interval-in-seconds: 3
+  client:
+    service-url:
+      defaultZone: http://peer1:${app.peer1Port}/eureka

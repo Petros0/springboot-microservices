@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: customer-service-${random.uuid}
+
+
+server:
+  port: 8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8761/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 1
