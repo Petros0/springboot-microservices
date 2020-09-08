@@ -1,0 +1,12 @@
+---
+spring:
+  profiles: as1
+server:
+  port: 8091
+
+---
+server:
+  port: 8092
+spring:
+  profiles: as2
+
