@@ -5,6 +5,8 @@ spring:
   freemarker:
     template-loader-path: classpath:/templates/
     prefer-file-system-access: false
+  application:
+    name: discovery
 
 app:
   peer1Port: 8761

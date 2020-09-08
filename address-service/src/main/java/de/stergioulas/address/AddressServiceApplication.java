@@ -29,8 +29,8 @@ public class AddressServiceApplication {
 
 		@GetMapping("/addresses")
 		List<String> customers() {
-			log.info("addresses endpoint ->");
-			return List.of("Address1", env.getProperty("server.port"));
+			log.info("Addresses endpoint ->");
+			return List.of("450  Leisure Lane", "1673  Gerald L. Bates Drive");
 		}
 	}
 
