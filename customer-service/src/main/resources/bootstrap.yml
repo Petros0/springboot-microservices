@@ -10,5 +10,6 @@ eureka:
     enabled: true
     service-url:
       defaultZone: http://peer1:8761/eureka, http://peer2:8762/eureka
+    fetch-registry: true
   instance:
     lease-renewal-interval-in-seconds: 1

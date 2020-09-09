@@ -6,9 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +20,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableEurekaClient
+@EnableFeignClients
 @Log4j2
 public class CustomerServiceApplication {
 
@@ -29,6 +34,11 @@ public class CustomerServiceApplication {
         return new RestTemplate();
     }
 
+    @FeignClient("address-service")
+    interface AddressClient {
+        @RequestMapping(method = RequestMethod.GET, value = "/addresses")
+        List<String> getAddresses();
+    }
 
     @RestController
     @RequiredArgsConstructor
@@ -36,6 +46,7 @@ public class CustomerServiceApplication {
 
         private final Environment env;
         private final RestTemplate restTemplate;
+        private final AddressClient client;
 
         @GetMapping("/customers")
         List<String> customers() {
@@ -46,7 +57,7 @@ public class CustomerServiceApplication {
         @GetMapping("/customers/addresses")
         Object addresses() {
             log.info("Addresses endpoint ->");
-            return restTemplate.getForObject("http://address-service/addresses", Object.class);
+            return client.getAddresses();
         }
     }
 }
