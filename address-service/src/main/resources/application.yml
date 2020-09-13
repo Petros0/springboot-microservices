@@ -10,3 +10,13 @@ server:
 spring:
   profiles: as2
 
+---
+server:
+  port: 8093
+spring:
+  profiles: rabbit
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
