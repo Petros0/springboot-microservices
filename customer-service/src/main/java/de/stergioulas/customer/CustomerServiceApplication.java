@@ -37,10 +37,6 @@ public class CustomerServiceApplication implements CommandLineRunner {
 
     @Autowired
     Environment env;
-
-    @Autowired
-    Binding binding;
-
     public static void main(String[] args) {
         SpringApplication.run(CustomerServiceApplication.class, args);
     }
@@ -96,10 +92,11 @@ public class CustomerServiceApplication implements CommandLineRunner {
 //        }
     }
 
+
     @RequiredArgsConstructor
     @Profile("rabbit")
     @RestController
-    class RabbitConfig {
+    static class RabbitConfig {
 
         private final RabbitTemplate rabbitTemplate;
         private String queueName = "my-queue";
