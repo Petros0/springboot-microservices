@@ -2,8 +2,17 @@ global:
   scrape_interval: 1s
 
 scrape_configs:
-  - job_name: 'spring_micrometer'
-    metrics_path: '/actuator/prometheus'
-    scrape_interval: 5s
+  - job_name: 'eureka'
+    scrape_interval: 1s
+    metrics_path: /actuator/prometheus
     static_configs:
-      - targets: [ '192.168.0.206:8080' ]
+    consul_sd_configs:
+      - server: '192.168.0.206:8761'
+    relabel_configs:
+      - source_labels: [ '__meta_consul_tags' ]
+        action: keep
+      - source_labels: [ '__meta_consul_service' ]
+        target_label: job
+      - source_labels: [ '__meta_consul_address', '__meta_consul_service_metadata_management_port' ]
+        separator: ':'
+        target_label: __address__

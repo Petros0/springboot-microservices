@@ -13,3 +13,7 @@ eureka:
     fetch-registry: true
   instance:
     lease-renewal-interval-in-seconds: 1
+    metadata-map:
+      metrics.path: /actuator/prometheus
+      health.path: /actuator/health
+      management.context-path: /actuator

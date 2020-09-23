@@ -8,10 +8,22 @@ spring:
   application:
     name: discovery
 
+eureka:
+  instance:
+    metadata-map:
+      metrics.path: /actuator/prometheus
+      health.path: /actuator/health
+      management.context-path: /actuator
+
 app:
   peer1Port: 8761
   peer2Port: 8762
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
 ---
 spring:
   profiles: peer1
