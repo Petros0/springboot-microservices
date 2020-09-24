@@ -20,6 +20,7 @@ configurations {
 
 ext {
     set('springCloudVersion', "Hoxton.SR8")
+    set('springBootAdminVersion', "2.3.0")
 }
 
 dependencies {
@@ -48,11 +49,17 @@ dependencies {
     // metrics
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    // admin
+
+    implementation 'de.codecentric:spring-boot-admin-starter-client'
+
 }
 
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
     }
 }
 

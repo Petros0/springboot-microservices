@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: admin-service
+
+
+server:
+  port: 9009
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://peer1:8761/eureka, http://peer2:8762/eureka
+    fetch-registry: true
+  instance:
+    lease-renewal-interval-in-seconds: 1
+    metadata-map:
+      metrics.path: /actuator/prometheus
+      health.path: /actuator/health
+      management.context-path: /actuator
